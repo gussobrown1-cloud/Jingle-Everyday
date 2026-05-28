@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useStore } from './store/useStore';
 import { Header } from './components/Header';
 import { StatsBar } from './components/StatsBar';
@@ -13,7 +14,11 @@ import { Notifications } from './components/Notifications';
 import { Footer } from './components/Footer';
 
 export default function App() {
-  const { page, selectedJingleId } = useStore();
+  const { page, selectedJingleId, initializeStore } = useStore();
+
+  useEffect(() => {
+    initializeStore();
+  }, [initializeStore]);
 
   if (page === 'admin') return <><AdminPanel /><Notifications /></>;
   if (page === 'jingle' && selectedJingleId) return <><JingleDetail /><DonationModal /><Notifications /></>;
